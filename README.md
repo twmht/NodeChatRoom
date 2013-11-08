@@ -13,5 +13,5 @@ node.js chatroom -p 5566 #specify the port number
 
 ##Client Side
 ```
-telent server_ip 5566
+telnet server_ip 5566
 ```
