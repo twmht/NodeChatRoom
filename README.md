@@ -6,7 +6,9 @@ A node.js-based chat room
 ##Server Side
 
 ```
-nodejs chatroom 5566 #Chat server running at port 5566
+nodejs chatroom #default port is 5566
+#or
+node.js chatroom -p 5566 #specify the port number
 ```
 
 ##Client Side

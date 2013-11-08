@@ -1,7 +1,8 @@
 var net = require('net');
+var args = require('optimist').usage('Create nodejs chat server.\nUsage:$0').demand('p').alias('p','port').describe('p','specify port number').default({p:5566}).argv;
 
 var HOST = '127.0.0.1';
-var PORT = process.argv[2]
+var PORT = args.port
 var socket_array = Array();
 
 // Create a server instance, and chain the listen function to it
