@@ -1,7 +1,7 @@
 NodeChatRoom
 ============
 
-A node.js-based chat room
+A node.js-based multiroom chat
 
 ##Server Side
 
@@ -15,3 +15,4 @@ node.js chatroom -p 5566 #specify the port number
 ```
 telnet server_ip 5566
 ```
+
