@@ -6,7 +6,7 @@
 ###Server Side
 
 ```
-node.js chatroom [-p] [port_number] #specify the port number
+node.js chatroom [-p] [port_number]
 ```
 
 ###Client Side
