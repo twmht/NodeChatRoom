@@ -2,7 +2,8 @@ var net = require('net');
 var args = require('optimist').usage('Create nodejs chat server.\nUsage:$0').demand('p').alias('p','port').describe('p','specify port number').default({p:5566}).argv;
 
 var PORT = args.port
-var socket_array = Array();
+var sockets = {};
+var id = 0;
 
 net.createServer(function(sock) {
     var ask_name = true;
@@ -11,7 +12,8 @@ net.createServer(function(sock) {
     var room;
     var buffer = "";
     var socket_data = {};
-    socket_data['socket'] = sock;
+    socket_data['sock'] = sock;
+
     sock.write('Welcome, enter your username:');
 
     sock.on('data', function(data) {
@@ -31,24 +33,25 @@ net.createServer(function(sock) {
                 buffer = "";
                 ask_room = false;
                 socket_data['room'] = room;
-                socket_array.push(socket_data);
+                sockets[id++] = socket_data;
                 sock.write("==========\n");
-                for (var i = 0; i < socket_array.length; i++) {
-                    if (socket_array[i].socket == sock) {
+                for (var i in sockets) {
+                    if (sockets[i].sock == sock) {
                         continue;
                     } else {
-                        socket_array[i].socket.write(name + " has joined.\n");
+                        if(sockets[i].room == room)
+                            sockets[i].sock.write(name + " has joined.\n");
                     }
                 }
             } else {
                 buffer += data;
                 buffer = buffer.replace(/(\r\n|\n|\r)/gm,"");
-                for (var i = 0; i < socket_array.length; i++) {
-                    if (socket_array[i].socket == sock) {
+                for (var i in sockets) {
+                    if (sockets[i].sock == sock) {
                         continue;
                     } else {
-                        if (socket_array[i].room == room)
-                        socket_array[i].socket.write(name + ": " + buffer +"\n");
+                        if (sockets[i].room == room)
+                            sockets[i].sock.write(name + ": " + buffer +"\n");
                     }
                 }
                 buffer = "";
@@ -58,14 +61,16 @@ net.createServer(function(sock) {
 
     sock.on('close', function(data) {
         console.log(name + " left the chat (room: " + room + ").");
-        for (var i = 0; i < socket_array.length; i++) {
-            if (socket_array[i].socket == sock) {
-                socket_array.splice(i,1);
-                i--;
+        for (var i in sockets) {
+            if (sockets[i].sock == sock) {
+                var del = i;
+                continue;
             } else {
-                socket_array[i].socket.write(name + " has left\n");
+                if(sockets[i].room == room)
+                    sockets[i].sock.write(name + " has left\n");
             }
         }
+        delete sockets[del];
     });
 
 }).listen(PORT);
