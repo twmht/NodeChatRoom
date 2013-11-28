@@ -6,13 +6,11 @@ A node.js-based multiroom chat
 ##Server Side
 
 ```
-nodejs chatroom #default port is 5566
-#or
-node.js chatroom -p 5566 #specify the port number
+node.js chatroom [-p] [port_number] #specify the port number
 ```
 
 ##Client Side
 ```
-telnet server_ip 5566
+telnet server_ip port_number
 ```
 
