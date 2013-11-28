@@ -1,15 +1,15 @@
-NodeChatRoom
+#NodeChatRoom
 ============
 
-A node.js-based multiroom chat
+##A node.js-based multiroom chat
 
-##Server Side
+###Server Side
 
 ```
 node.js chatroom [-p] [port_number] #specify the port number
 ```
 
-##Client Side
+###Client Side
 ```
 telnet server_ip port_number
 ```
