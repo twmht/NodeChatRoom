@@ -10,7 +10,7 @@ net.createServer(function(sock) {
     var name;
     var room;
     var buffer = "";
-    var socket_data = Array();
+    var socket_data = {};
     socket_data['socket'] = sock;
     sock.write('Welcome, enter your username:');
 
